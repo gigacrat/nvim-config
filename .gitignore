@@ -1,0 +1,25 @@
+# Neovim plugin manager
+lazy-lock.json
+
+# Plugin directories
+plugin/
+
+# Cache and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor-specific files
+.vscode/
+.idea/
+.claude/
+
+# Backup files
+*.bak
+*.backup
