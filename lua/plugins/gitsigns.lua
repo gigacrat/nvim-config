@@ -80,6 +80,11 @@ return {
         else
           gs.stage_hunk()
         end
+        -- HACK: On Windows, Gitsigns signcolumn doesn't update automatically
+        -- Here we force a write to trigger the signcolumn update
+        if vim.has("win32") == 1 then
+          vim.cmd("write")
+        end
       end,
       desc = "Stage hunk",
       mode = { "n", "v" }
