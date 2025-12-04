@@ -34,22 +34,36 @@ local options = {
     changed_themes = {
       ['chadracula-evondev'] = {
         base_30 = {
-          black = "#102c39", -- base color
-          darker_black = "#0e2631", -- 6% darker than black
-          black2 = "#143347", -- 6% lighter than black
-          one_bg = "#1a4257", -- 10% lighter than black
-          one_bg2 = "#1f4a62", -- 6% lighter than one_bg
-          one_bg3 = "#24526d", -- 6% lighter than one_bg2
-          grey = "#5e7b8a", -- ~40% lighter than black
-          grey_fg = "#6b8897", -- 10% lighter than grey
-          grey_fg2 = "#71909f", -- 5% lighter than grey
-          light_grey = "#7b9aa9", -- 15% lighter than grey
-          line = "#23506b", -- 15% lighter than black
-          lightbg = "#1f4a62", -- Same as one_bg2
-          statusline_bg = "#0e2631", -- Same as darker_black
+          -- Nightscape glass ramp centered on black2 = "#0E2A3A"
+          black         = "#0B222F", -- slightly darker sibling of black2
+          darker_black  = "#081A24", -- deeper glass for gutters / alt bg
+          black2        = "#0E2A3A", -- your chosen CursorLine / selection bg
+
+          one_bg        = "#123447", -- 1 step lighter than black2
+          one_bg2       = "#174056", -- 2 steps lighter
+          one_bg3       = "#1D4F69", -- 3 steps lighter
+
+          grey          = "#3B5566", -- desaturated UI grey, ~40% lighter than black
+          grey_fg2      = "#4A6576", -- 1 step lighter than grey
+          grey_fg       = "#56728C", -- 2 step lighter (a.k.a. comment blue)
+          light_grey    = "#7A96A8", -- soft, readable UI text / subtle borders
+
+          line          = "#102E40", -- line / split color, just above black2
+          lightbg       = "#174056", -- Same as one_bg2
+          statusline_bg = "#081A24", -- Same as darker_black
+          purple        = "#4E8DFF", -- Nightscape hero blue (replaces Dracula purple)
+          dark_purple   = "#3B6ED6", -- shaded hero for depth / secondary emphasis
+          pmenu_bg      = "#6FA3FF", -- luminous UI hero surface (popup menus)
+          folder_bg     = "#6FA3FF", -- same as pmenu_bg
+          violet        = "#6FA3FF", -- same as pmenu_bg
+          red           = "#e25555",
+          yellow        = "#E0A84F",
+          green         = "#4FD18B",
         },
         base_16 = {
           base00 = "#061319",
+          base08 = "#4E8DFF",
+          base0F = "#6F86AD",
         },
       },
     },
