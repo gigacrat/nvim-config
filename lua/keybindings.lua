@@ -29,6 +29,9 @@ map("n", "<leader>wj", "<C-w>j", { desc = "Go to window below" })
 map("n", "<leader>wk", "<C-w>k", { desc = "Go to window above" })
 map("n", "<leader>wl", "<C-w>l", { desc = "Go to right window" })
 
+-- Clear search highlights with Escape in normal mode
+vim.keymap.set("n", "<esc>", "<cmd>noh<cr>", { desc = "Clear highlights" })
+
 -- Oil file explorer
 map("n", "<leader>e", function()
   require("oil").open_float()
