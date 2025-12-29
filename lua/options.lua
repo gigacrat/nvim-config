@@ -8,6 +8,9 @@ vim.g.maplocalleader = " "
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- Word Wrap
+vim.opt.wrap = false
+
 -- Indentation
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
