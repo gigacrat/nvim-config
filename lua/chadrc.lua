@@ -1,7 +1,7 @@
 -- NvChad configuration for base46 theming
 local options = {
   base46 = {
-    theme = "nightscape_rc2", -- default theme
+    theme = "nightscape", -- default theme
     hl_add = {
       StatusLineNC = { bg = "darker_black" },
       CursorLineNr = { fg = "blue" },
