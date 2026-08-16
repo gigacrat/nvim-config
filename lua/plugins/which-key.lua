@@ -10,6 +10,7 @@ return {
       { "<leader>a", group = "AI" },
       { "<leader>l", group = "LSP" },
       { "<leader>g", group = "Git" },
+      { "<leader>gt", group = "Toggle" },
       { "<leader>e", group = "Explorer" },
       { "<leader>t", group = "Toggle/Terminal" },
       { "<leader>w", group = "Window" },
@@ -18,9 +19,8 @@ return {
       -- LSP navigation keybindings (standard)
       { "gD", desc = "Go to declaration" },
       { "gd", desc = "Go to definition" },
-      { "gi", desc = "Go to implementation" },
-      { "gr", desc = "References" },
       { "K", desc = "Hover documentation" },
+      { "gr", group = "LSP" },
     },
   },
 }

@@ -98,7 +98,6 @@ return {
     },
 
     -- Toggle options
-    { "<leader>gt",  group = "Toggle" },
     { "<leader>gtb", "<cmd>Gitsigns toggle_current_line_blame<CR>", desc = "Toggle line blame" },
     { "<leader>gtd", "<cmd>Gitsigns toggle_deleted<CR>",            desc = "Toggle deleted" },
   },

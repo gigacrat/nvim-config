@@ -13,15 +13,36 @@ return {
         local opts = { buffer = ev.buf, noremap = true, silent = true }
         local builtin = require("telescope.builtin")
 
-        -- Standard navigation (keep as-is)
+        -- Which key an LSP action gets follows one rule:
+        --
+        --   Override a vanilla key in place only when the LSP feature is a
+        --   strict upgrade of what that key already meant. Everything else
+        --   lives in Neovim's gr* namespace (:help lsp-defaults).
+        --
+        -- gd/gD qualify: vanilla they are "Goto local/global Declaration"
+        -- (:help gd), a text-search approximation of the same idea, and the
+        -- docs concede it "may not work well" outside C. K qualifies too --
+        -- vanilla it consults 'keywordprg'. Neovim agrees: it maps K to hover
+        -- automatically but deliberately leaves gd alone, routing definition
+        -- through 'tagfunc' (<C-]>) instead, which is why gr* has no "grd".
+        --
+        -- gi did NOT qualify and was removed: vanilla it resumes insert at the
+        -- last edit position, unrelated to LSP implementation, which already
+        -- has gri. Mapping bare gr/gi also shadowed the whole gr* namespace and
+        -- made every press wait out 'timeoutlen'.
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, vim.tbl_extend("force", opts, { desc = "Go to declaration" }))
         vim.keymap.set("n", "gd", builtin.lsp_definitions, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
-        vim.keymap.set("n", "gi", builtin.lsp_implementations, vim.tbl_extend("force", opts, { desc = "Go to implementation" }))
-        vim.keymap.set("n", "gr", builtin.lsp_references, vim.tbl_extend("force", opts, { desc = "References" }))
         vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover documentation" }))
 
+        -- Built-in gr* keys re-pointed at Telescope pickers, so multi-result
+        -- queries give a filterable list instead of the quickfix. gra/grn/grx
+        -- stay native: they route through vim.ui.select/input, which
+        -- telescope-ui-select already renders as a picker.
+        vim.keymap.set("n", "grr", builtin.lsp_references, vim.tbl_extend("force", opts, { desc = "References" }))
+        vim.keymap.set("n", "gri", builtin.lsp_implementations, vim.tbl_extend("force", opts, { desc = "Go to implementation" }))
+        vim.keymap.set("n", "grt", builtin.lsp_type_definitions, vim.tbl_extend("force", opts, { desc = "Type definition" }))
+
         -- LSP actions under <leader>l
-        vim.keymap.set("n", "<leader>lD", builtin.lsp_type_definitions, vim.tbl_extend("force", opts, { desc = "Type definition" }))
         vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename symbol" }))
         vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code action" }))
         vim.keymap.set("n", "<leader>lf", function()
