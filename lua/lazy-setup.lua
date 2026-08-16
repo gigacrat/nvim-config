@@ -14,6 +14,9 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require("lazy").setup({
+  -- Local checkouts of plugins under development; fall back to fetching from
+  -- git on machines where the path doesn't exist.
+  dev = { path = "~/Projects/nvim", fallback = true },
   spec = {
     -- Import plugins from lua/plugins/
     { import = "plugins" },
