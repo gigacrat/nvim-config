@@ -29,6 +29,19 @@ map("n", "<leader>wj", "<C-w>j", { desc = "Go to window below" })
 map("n", "<leader>wk", "<C-w>k", { desc = "Go to window above" })
 map("n", "<leader>wl", "<C-w>l", { desc = "Go to right window" })
 
+-- Visual mode refinements. These override keys whose vanilla behaviour they
+-- extend rather than replace: < and > still indent, p still pastes.
+map("x", "<", "<gv", { desc = "Indent left, keep selection" })
+map("x", ">", ">gv", { desc = "Indent right, keep selection" })
+map("x", "p", '"_dP', { desc = "Paste over selection, keep register" })
+
+-- Move lines. On Alt rather than visual J/K, which vanilla uses for join
+-- and 'keywordprg' -- line moving is not an upgrade of either.
+map("n", "<A-j>", "<cmd>m .+1<CR>==", { desc = "Move line down" })
+map("n", "<A-k>", "<cmd>m .-2<CR>==", { desc = "Move line up" })
+map("x", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
+map("x", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
+
 -- Clear search highlights with Escape in normal mode
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr>", { desc = "Clear highlights" })
 

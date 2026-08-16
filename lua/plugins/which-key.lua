@@ -11,8 +11,7 @@ return {
       { "<leader>l", group = "LSP" },
       { "<leader>g", group = "Git" },
       { "<leader>gt", group = "Toggle" },
-      { "<leader>e", group = "Explorer" },
-      { "<leader>t", group = "Toggle/Terminal" },
+      { "<leader>t", group = "Toggle" },
       { "<leader>w", group = "Window" },
       { "<leader>s", group = "Search/Replace" },
 
