@@ -2,22 +2,6 @@ return {
   "lewis6991/gitsigns.nvim",
   event = { "BufReadPre", "BufNewFile" },
   opts = {
-    signs = {
-      add = { text = "▌" },
-      change = { text = "▌" },
-      delete = { text = "▌" },
-      topdelete = { text = "▌" },
-      changedelete = { text = "▌" },
-      untracked = { text = "▌" },
-    },
-    signs_staged = {
-      add          = { text = '▎' },
-      change       = { text = '▎' },
-      delete       = { text = '▎' },
-      topdelete    = { text = '▎' },
-      changedelete = { text = '▎' },
-      untracked    = { text = '▎' },
-    },
     signcolumn = true, -- Display signs in the sign column
     numhl = false, -- Highlight line number for changed lines
     linehl = false, -- Highlight entire line for changed lines
@@ -79,11 +63,6 @@ return {
           gs.stage_hunk({ math.min(start, finish), math.max(start, finish) })
         else
           gs.stage_hunk()
-        end
-        -- HACK: On Windows, Gitsigns signcolumn doesn't update automatically
-        -- Here we force a write to trigger the signcolumn update
-        if vim.has("win32") == 1 then
-          vim.cmd("write")
         end
       end,
       desc = "Stage hunk",
