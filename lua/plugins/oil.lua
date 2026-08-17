@@ -1,6 +1,19 @@
 return {
   "stevearc/oil.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
+  -- Eager despite the keys below: default_file_explorer only takes over
+  -- directory buffers (`nvim .`, `:e src/`) if oil loads before they open
+  lazy = false,
+  keys = {
+    {
+      "<leader>e",
+      function()
+        require("oil").open_float()
+      end,
+      desc = "Toggle file explorer (float)",
+    },
+    { "<leader>E", "<cmd>Oil<cr>", desc = "Open file explorer at root" },
+  },
   config = function()
     require("oil").setup({
       -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
@@ -129,9 +142,5 @@ return {
         },
       },
     })
-
-    -- Keybindings (consolidated under <leader>e*)
-    -- Note: <leader>e is defined in keybindings.lua for floating Oil
-    -- This provides non-floating alternative at project root
   end,
 }

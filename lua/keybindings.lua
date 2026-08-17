@@ -45,13 +45,6 @@ map("x", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = tru
 -- Clear search highlights with Escape in normal mode
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr>", { desc = "Clear highlights" })
 
--- Oil file explorer
-map("n", "<leader>e", function()
-  require("oil").open_float()
-end, { desc = "Toggle file explorer (float)" })
-
-map("n", "<leader>E", "<CMD>Oil<CR>", { desc = "Open file explorer at root" })
-
 -- Toggle/Terminal commands
 map("n", "<leader>tn", function()
   vim.opt.number = not vim.opt.number:get()
@@ -69,17 +62,9 @@ map("n", "<leader>ts", function()
   vim.opt.spell = not vim.opt.spell:get()
 end, { desc = "Toggle spell check" })
 
-map("n", "<leader>tH", function()
-  require("base46").load_all_highlights()
-  vim.notify("Base46 highlights reloaded", vim.log.levels.INFO)
-end, { desc = "Reload highlights" })
-
 -- Search/Replace commands
 map("n", "<leader>ss", ":%s/\\v//g<left><left><left>", { desc = "Search and replace in buffer" })
 map("n", "<leader>sw", ":%s/\\v<C-r><C-w>//g<left><left>", { desc = "Search and replace word under cursor" })
-map("n", "<leader>sr", function()
-  require("telescope.builtin").resume()
-end, { desc = "Resume last search" })
 
 -- Terminal mode mappings
 map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

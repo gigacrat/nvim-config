@@ -173,6 +173,9 @@ return {
     { "<leader>fd", "<cmd>Telescope diagnostics<cr>", desc = "Find diagnostics" },
     { "<leader>ft", "<cmd>Telescope themes<cr>", desc = "Find theme" },
 
+    -- Search commands
+    { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Resume last search" },
+
     -- Git commands
     { "<leader>fgb", "<cmd>Telescope git_branches<cr>", desc = "Git branches" },
     { "<leader>fgc", "<cmd>Telescope git_commits<cr>", desc = "Git commits" },
