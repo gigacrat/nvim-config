@@ -1,5 +1,4 @@
--- Custom Neovim configuration
--- This config is separate from Omarchy's default nvim setup
+-- Personal Neovim configuration
 
 -- NvChad theme support, goes before running lazy setup
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46_cache/"
