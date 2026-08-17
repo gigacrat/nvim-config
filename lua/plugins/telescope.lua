@@ -1,6 +1,79 @@
 -- Telescope fuzzy finder
 dofile(vim.g.base46_cache .. "telescope")
 
+-- The empty unnamed buffer nvim starts with. `:edit` would reuse it, but
+-- switching buffers directly leaves it stranded in the buffer list.
+local function is_startup_scratch(bufnr)
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return false
+  end
+
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+  return vim.api.nvim_buf_get_name(bufnr) == ""
+    and vim.bo[bufnr].buftype == ""
+    and not vim.bo[bufnr].modified
+    and #lines <= 1
+    and (lines[1] or "") == ""
+    and #vim.fn.win_findbuf(bufnr) == 0
+end
+
+-- Open every entry marked with <Tab>. Telescope's built-in <CR> only ever
+-- opens the entry under the cursor and drops the rest of the selection.
+local function open_selected(prompt_bufnr)
+  local actions = require("telescope.actions")
+  local state = require("telescope.actions.state")
+
+  local picker = state.get_current_picker(prompt_bufnr)
+  local targets = {}
+
+  for _, entry in ipairs(picker:get_multi_selection()) do
+    local bufnr = entry.bufnr
+
+    if not bufnr then
+      -- Only path/filename count as files; pickers like git_commits and
+      -- commands leave both nil, so they fall through to the default action.
+      local path = entry.path or entry.filename
+      if path and path ~= "" and vim.fn.isdirectory(path) == 0 then
+        bufnr = vim.fn.bufadd(vim.fn.fnamemodify(path, ":p"))
+      end
+    end
+
+    if bufnr then
+      table.insert(targets, { bufnr = bufnr, lnum = entry.lnum, col = entry.col })
+    end
+  end
+
+  -- Nothing marked, or nothing marked was a file
+  if #targets == 0 then
+    return actions.select_default(prompt_bufnr)
+  end
+
+  actions.close(prompt_bufnr)
+
+  -- Closing restores the window we came from, so this is the buffer that was
+  -- current before the picker opened
+  local origin = vim.api.nvim_get_current_buf()
+
+  -- Load, don't just list: CopilotChat's #buffers context filters on
+  -- nvim_buf_is_loaded, so unloaded buffers never reach the chat.
+  for _, target in ipairs(targets) do
+    vim.bo[target.bufnr].buflisted = true
+    vim.fn.bufload(target.bufnr)
+  end
+
+  -- Land on the first file marked, the rest wait in the buffer list
+  local first = targets[1]
+  vim.api.nvim_set_current_buf(first.bufnr)
+  if first.lnum then
+    pcall(vim.api.nvim_win_set_cursor, 0, { first.lnum, (first.col or 1) - 1 })
+  end
+
+  if origin ~= first.bufnr and is_startup_scratch(origin) then
+    pcall(vim.api.nvim_buf_delete, origin, { force = false })
+  end
+end
+
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
@@ -24,12 +97,14 @@ return {
       },
       mappings = {
         i = {
+          ["<CR>"] = open_selected,
           ["<C-j>"] = require("telescope.actions").move_selection_next,
           ["<C-k>"] = require("telescope.actions").move_selection_previous,
           ["<C-S-j>"] = require("telescope.actions").cycle_history_next,
           ["<C-S-k>"] = require("telescope.actions").cycle_history_prev,
         },
         n = {
+          ["<CR>"] = open_selected,
           ["q"] = require("telescope.actions").close,
         },
       },
