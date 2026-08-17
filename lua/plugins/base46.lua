@@ -3,7 +3,7 @@ return {
   {
     "nvchad/ui",
     config = function()
-      require "nvchad" 
+      require "nvchad"
     end
   },
   {
