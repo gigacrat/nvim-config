@@ -74,6 +74,12 @@ local function open_selected(prompt_bufnr)
   end
 end
 
+-- Naming the action makes telescope's own help (<C-/>) list it as
+-- `open_selected`; a bare function shows up there as <anonymous>
+local custom_actions = require("telescope.actions.mt").transform_mod({
+  open_selected = open_selected,
+})
+
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
@@ -97,14 +103,14 @@ return {
       },
       mappings = {
         i = {
-          ["<CR>"] = open_selected,
+          ["<CR>"] = custom_actions.open_selected,
           ["<C-j>"] = require("telescope.actions").move_selection_next,
           ["<C-k>"] = require("telescope.actions").move_selection_previous,
           ["<C-S-j>"] = require("telescope.actions").cycle_history_next,
           ["<C-S-k>"] = require("telescope.actions").cycle_history_prev,
         },
         n = {
-          ["<CR>"] = open_selected,
+          ["<CR>"] = custom_actions.open_selected,
           ["q"] = require("telescope.actions").close,
         },
       },

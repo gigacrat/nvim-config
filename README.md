@@ -71,6 +71,14 @@ Leader is `<Space>`. `which-key` shows these on demand.
 | `<leader>fb` `fr` `fh` `fk` `fc` `fd` | buffers, recent, help, keymaps, commands, diagnostics |
 | `<leader>ft` | theme picker |
 | `<leader>ss` `sw` `sr` | replace in buffer / word under cursor / resume search |
+| `<Tab>` / `<CR>` in a picker | mark entries / open every marked entry |
+
+Marking with `<Tab>` is Telescope's own; opening all of them is not. Stock
+`<CR>` opens only the entry under the cursor and discards the rest of the
+selection. With nothing marked it behaves as usual, and pickers whose entries
+aren't files (commits, commands) always fall back to it. Marked files are
+loaded rather than just listed, so they reach CopilotChat's `#buffer:listed`
+context.
 
 ### LSP
 
