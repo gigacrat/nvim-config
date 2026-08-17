@@ -16,6 +16,10 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 
+-- Search
+vim.opt.ignorecase = true -- Case-insensitive search...
+vim.opt.smartcase = true -- ...unless the pattern contains a capital letter
+
 -- Scroll settings
 vim.o.scrolloff = 999
 vim.o.scrolljump = -50
