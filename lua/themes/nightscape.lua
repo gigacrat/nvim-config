@@ -1,80 +1,85 @@
 local M = {}
 
 M.base_30 = {
-  -- Core gradient for UI foregrounds and backgrounds
-  darker_black  = "#071a22", -- deepest accents / gutters / alt bg
-  black         = "#061319", -- wet asphalt. core theme color
-  black2        = "#052330", -- cursorline / selection bg (wet asphalt under light)
-  one_bg        = "#053247", -- 1 step lighter than black2
-  one_bg2       = "#04425E", -- 2 steps lighter
-  one_bg3       = "#045175", -- 3 steps lighter
-  lightbg       = "#045175",
-  grey          = "#3b7297", -- desaturated UI grey, ~40% lighter than black
-  grey_fg       = "#457ca2", -- 1 step lighter than grey (comments)
-  grey_fg2      = "#5087ac", -- 2 steps lighter
-  light_grey    = "#5a91b7", -- soft, readable UI text / subtle borders
-  white         = "#99dfff", -- blue at 85% luminance via HSL
+  -- Neutral ramp, locked at OKLCh hue 240, AI Assisted
+  darker_black    = "#010A14", -- floats, sidebars
+  black           = "#01111D", -- bg
+  lighter_black   = "#021929", -- floats, sidebars
+  black2          = "#022439", -- cursorline
+  one_bg          = "#02304A", -- statusline icon fg
+  one_bg2         = "#003C5C", -- selection background
+  one_bg3         = "#01496E", -- borders
 
-  -- UI backgrounds
-  statusline_bg = "#052330",
-  line          = "#154257", -- split / border line, just above black2
-  pmenu_bg      = "#47C5FF", -- blue at 64% luminance via HSL
-  folder_bg     = "#47C5FF",
+  -- Foreground Ramp, linear blend from one_bg3 to bright_white, locked at hue 240
+  grey            = "#2A6286", -- line numbers, scrollbars
+  grey_fg         = "#4E7C9D", -- comments
+  grey_fg2        = "#7197B2", -- unused placeholder
+  light_grey      = "#94B1C6", -- fg (inactive text)
+  light_white     = "#B7CCDC", -- fg (normal text)
+  white           = "#DAE7F1",
 
-  -- Semantic fg colors
-  red      = "#FF485B", -- error (triad from violet, shifted to 20 hue via OKLCH))
-  yellow   = "#FFBD39", -- warning (violet's complement, shifted to 80 hue via OKLCH, then decreased lightness until within sRGB gamut)
-  green    = "#74FF49", -- success (triad from violet)
+  -- Neutral aliases
+  line            = "#01496E", -- vertsplit and other rules;
+  lightbg         = "#01496E", -- statusline sections
+  statusline_bg   = "#021929", -- tracks darker_black
 
-  -- Semantic bg colors (fg colors blended with 000000 at 80% opacity)
-  brownred      = "#330E12", -- error / deleted bg
-  darkyellow    = "#33260B", -- warning / changed bg
-  darkgreen     = "#17330F", -- success / added bg
+  -- OKLCH hue spectrum based on 00AEFF
+  red             = "#F97378",
+  orange          = "#F38034",
+  yellow          = "#D89500",
+  vibrant_green   = "#8CB42A",
+  green           = "#00C27F",
+  teal            = "#00C1A7",
+  cyan            = "#00BAD5",
+  blue            = "#00AEFF",
+  nord_blue       = "#7C9BFF",
+  purple          = "#B488FA",
+  pink            = "#E576C3",
 
-  -- Monochromatic shifts from nord_blue and purple
-  dark_purple   = "#9557F8",
-  violet        = "#4974FF",
+  dark_purple     = "#4974FF", -- monochromatic shift from nord_blue
 
-  -- Neon channel (OKLCH hue shifts from 00AEFF)
-  pink          = "#E576C3",
-  purple        = "#B488FA",
-  nord_blue     = "#7C9BFF",
-  blue          = "#00AEFF",
-  cyan          = "#00BAD5",
-  teal          = "#00C27D",
-  vibrant_green = "#6CBB4E",
+  highlight       = "#FEB001", -- max chroma max brightness yellow via OKLCh
 
-  -- Halo channel
-  orange        = "#F89557", -- triad from dark_purple
-  sun           = "#e5c389", -- triad from nord_blue, shifted to 80 hue via OKLCH, then 64% sat
-  baby_pink     = "#F5A3DC", -- pink at 80% sat + 80% luminance via HSL
+  sun             = "#E6C48C",
+  pmenu_bg        = "#98D1FA", -- blue @ 50% chroma, +0.12 lightness via OKLCh
+  folder_bg       = "#98D1FA",
+  baby_pink       = "#EFB5DA",
+
+  brownred        = "#321717", -- red @ 20% brightness value via HSL, shifted to 20 hue via OKLCh
+  darkyellow      = "#2b1e05", -- brownred shifted to 80 hue via OKLCh
+  darkgreen       = "#0a2619", -- brownred shifted to 160 hue via OKLCh
+  darkhighlight   = "#432b02", -- highlight @ 25% brightness value via HSL, then hue-aligned via OKLCh
 }
 
+---@type Base16Table
 M.base_16 = {
-  -- Background / foreground colors
-  base00 = M.base_30.black,         -- main background (asphalt night)
-  base01 = M.base_30.one_bg,        -- slightly lighter bg
-  base02 = M.base_30.one_bg2,       -- secondary bg
-  base03 = M.base_30.one_bg3,       -- tertiary bg / subtle panels
-  base04 = M.base_30.grey,          -- @definition underline only; comments are light_grey/grey_fg
-  base05 = M.base_30.white,         -- main foreground (halogen glow)
-  base06 = "#a8e4ff",               -- lighter fg
-  base07 = "#b3e7ff",               -- lightest fg
-
-  -- Syntax highlights
-  base08 = M.base_30.blue,          -- variables / primary color
-  base09 = M.base_30.orange,        -- literals
-  base0A = M.base_30.teal,          -- types / structs / classes / modules
-  base0B = M.base_30.sun,           -- strings
-  base0C = M.base_30.purple,        -- Special: regex, string escapes, constructors
-  base0D = M.base_30.violet,        -- functions / methods / headings
-  base0E = M.base_30.pink,          -- keywords
-  base0F = M.base_30.grey_fg2,      -- brackets / delimiters / fold column
+  base00 = M.base_30.black,        -- Neovim Default Background
+  base01 = M.base_30.one_bg,       -- Lighter Background (Used for status bars, line number and folding marks)
+  base02 = M.base_30.one_bg2,      -- Selection Background (Visual Mode)
+  base03 = M.base_30.one_bg3,      -- Comments, Invisibles, Line Highlighting
+  base04 = M.base_30.grey_fg,      -- Dark Foreground, Dnf Underline (Used for status bars)
+  base05 = M.base_30.white,        -- Default Foreground
+  base06 = M.base_30.light_white,  -- Light Foreground (Not often used)
+  base07 = M.base_30.light_grey,   -- Light Foreground, Cmp Icons (Not often used)
+  base08 = M.base_30.blue,         -- Variables, Identifiers, Filed, Name Space
+  base09 = M.base_30.orange,       -- Integers, Boolean, Constants
+  base0A = M.base_30.green,        -- Classes, Attribute, Type, Repeat
+  base0B = M.base_30.sun,          -- Strings, Symbols, Inherited Class
+  base0C = M.base_30.purple,       -- Constructor, Special (regex, string escapes)
+  base0D = M.base_30.dark_purple,  -- Functions, Methods, Attribute IDs, Headings
+  base0E = M.base_30.pink,         -- Keywords, Storage, Selector
+  base0F = M.base_30.grey_fg2,     -- Delimiters, Brackets, Special Char, Deprecated
 }
 
 M.polish_hl = {
+  defaults = {
+    WinBarNC = { bg = M.base_30.lighter_black, fg = M.base_30.white },
+    WinBar = { bg = M.base_30.lighter_black, fg = M.base_30.white },
+    CursorLineNr = { fg = M.base_30.sun },
+  },
+
   telescope = {
-    TelescopeMatching = { bg = M.base_30.darkyellow, fg = M.base_30.yellow },
+    TelescopeMatching = { bg = M.base_30.darkhighlight, fg = M.base_30.highlight },
     TelescopeSelection = { fg = "none" },
   },
 
@@ -85,7 +90,19 @@ M.polish_hl = {
     ["@keyword.directive"] = { fg = M.base_30.pink },
   },
 
+  statusline = {
+    St_NormalMode = { bg = M.base_30.blue },
+    St_NormalModeSep = { fg = M.base_30.blue },
+    St_InsertMode = { bg = M.base_30.yellow },
+    St_InsertModeSep = { fg = M.base_30.yellow },
+    St_VisualMode = { bg = M.base_30.orange },
+    St_VisualModeSep = { fg = M.base_30.orange },
+    St_cwd_icon = { fg = M.base_30.black2 },
+    St_pos_icon = { fg = M.base_30.black2 },
+  },
+
   git = {
+    DiffNewFile = { fg = M.base_30.pmenu_bg },
     DiffAdd = { bg = M.base_30.darkgreen, fg = M.base_30.green },
     DiffAdded = { bg = M.base_30.darkgreen, fg = M.base_30.green },
     DiffDelete = { bg = M.base_30.brownred, fg = M.base_30.red },
@@ -98,10 +115,10 @@ M.polish_hl = {
   },
 
   syntax = {
-    Search = { bg = M.base_30.darkyellow, fg = M.base_30.yellow },
-    IncSearch = { bg = M.base_30.darkyellow, fg = M.base_30.yellow },
-    CurSearch = { bg = M.base_30.yellow, fg = M.base_30.black },
-    Substitute = { bg = M.base_30.darkyellow, fg = M.base_30.yellow },
+    Search = { bg = M.base_30.darkhighlight, fg = M.base_30.highlight },
+    IncSearch = { bg = M.base_30.darkhighlight, fg = M.base_30.highlight },
+    CurSearch = { bg = M.base_30.highlight, fg = M.base_30.black },
+    Substitute = { bg = M.base_30.darkhighlight, fg = M.base_30.highlight },
   },
 }
 
