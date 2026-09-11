@@ -2,25 +2,8 @@
 local options = {
   base46 = {
     theme = "nightscape", -- default theme
-    hl_add = {
-      StatusLineNC = { bg = "darker_black" },
-      CursorLineNr = { fg = "blue" },
-    },
-    hl_override = {
-      -- Statusline overrides
-      St_NormalMode = { bg = "blue" },
-      St_NormalModeSep = { fg = "blue" },
-      St_InsertMode = { bg = "yellow" },
-      St_InsertModeSep = { fg = "yellow" },
-      St_VisualMode = { bg = "orange" },
-      St_VisualModeSep = { fg = "orange" },
-      NormalFloat = { bg = "base00" },
-      Normal = { bg = "none" },
-      Visual = { bg = "black2" },
-      TbFill = { bg = "base00" },
-      WinBarNC = { bg = "darker_black", fg = "white" },
-      WinBar = { bg = "darker_black", fg = "white" },
-    },
+    hl_add = {},
+    hl_override = {},
     integrations = {},
     transparency = false,
     theme_toggle = { "onedark", "one_light" },
