@@ -14,9 +14,14 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require("lazy").setup({
-  -- Local checkouts of plugins under development; fall back to fetching from
-  -- git on machines where the path doesn't exist.
-  dev = { path = "~/Projects/nvim", fallback = true },
+  -- Plugins I author resolve to a local checkout under `path`, so edits are
+  -- live without a reinstall. `fallback` fetches from git instead on machines
+  -- where that checkout isn't present.
+  dev = {
+    path = "~/Projects/nvim",
+    patterns = { "gigacrat" },
+    fallback = true,
+  },
   spec = {
     -- Import plugins from lua/plugins/
     { import = "plugins" },
