@@ -34,6 +34,7 @@ vim.opt.clipboard = "unnamedplus"
 -- UI
 vim.opt.fillchars = { eob = " " } -- Hide ~ on non-existent lines
 vim.opt.cursorline = true
+vim.opt.winborder = "rounded"
 
 -- Winbar for non-floating windows only
 vim.api.nvim_create_autocmd({"BufWinEnter", "WinEnter", "TermOpen"}, {

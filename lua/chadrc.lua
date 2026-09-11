@@ -23,7 +23,7 @@ local options = {
         col = 0.1,
         width = 0.8,
         height = 0.8,
-        border = "single",
+        border = "rounded",
       },
     },
 
@@ -79,7 +79,7 @@ vim.keymap.set({"n", "t"}, "<A-f>", function()
       col = 0.1,
       width = 0.8,
       height = 0.8,
-      border = "single",
+      border = "rounded",
     }
   })
 end, { desc = "Toggle floating terminal" })
