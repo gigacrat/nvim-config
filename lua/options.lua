@@ -36,6 +36,20 @@ vim.opt.fillchars = { eob = " " } -- Hide ~ on non-existent lines
 vim.opt.cursorline = true
 vim.opt.winborder = "rounded"
 
+-- 'winborder' applies to any float opened without an explicit border, which
+-- catches lazy.nvim's full-screen backdrop and draws a rounded box around the
+-- whole editor. Strip it back off; a backdrop is meant to be invisible.
+-- Matched by filetype convention (`lazy_backdrop`, `mason_backdrop`, ...)
+-- rather than by guessing from window geometry.
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*_backdrop",
+  callback = function(ev)
+    for _, win in ipairs(vim.fn.win_findbuf(ev.buf)) do
+      vim.api.nvim_win_set_config(win, { border = "none" })
+    end
+  end,
+})
+
 -- Winbar for non-floating windows only
 vim.api.nvim_create_autocmd({"BufWinEnter", "WinEnter", "TermOpen"}, {
   callback = function()
