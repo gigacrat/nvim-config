@@ -20,7 +20,7 @@ M.base_30 = {
 
   -- Neutral aliases
   line            = "#01496E", -- vertsplit and other rules;
-  lightbg         = "#01496E", -- statusline sections
+  lightbg         = "#02304A", -- statusline sections
   statusline_bg   = "#021929", -- tracks darker_black
 
   -- OKLCH hue spectrum based on 00AEFF
